@@ -1,0 +1,4 @@
+# Local development secrets for `npm run dev` / `npm run preview`.
+# Copy to .dev.vars (gitignored). Leave empty to use the in-memory dev mock.
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=

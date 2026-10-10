@@ -1,0 +1,15 @@
+node_modules
+.next
+dist
+.wrangler
+out
+.env
+.env.local
+.env.production
+.env.*.local
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.data
+*.tsbuildinfo
+next-env.d.ts

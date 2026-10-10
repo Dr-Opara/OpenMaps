@@ -1,0 +1,36 @@
+{
+  "name": "openmaps-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "vinext build",
+    "preview": "vinext build && vite preview",
+    "deploy": "npx @vinext/cloudflare deploy",
+    "deploy:dry-run": "npx @vinext/cloudflare deploy --dry-run",
+    "typecheck": "tsc --noEmit",
+    "check:secrets": "node scripts/check-secrets.mjs"
+  },
+  "dependencies": {
+    "next": "^15.1.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-server-dom-webpack": "^19.2.6",
+    "vinext": "latest"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "latest",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vinext/cloudflare": "latest",
+    "@vitejs/plugin-rsc": "latest",
+    "postcss": "^8.5.29",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.6.0",
+    "vite": "^8.0.0",
+    "wrangler": "^4.0.0"
+  }
+}
