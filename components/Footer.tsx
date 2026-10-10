@@ -1,8 +1,9 @@
 import { Wordmark } from "./Logo";
-import { CONTACT_EMAIL, X_URL } from "@/lib/site";
+import { CONTACT_EMAIL, INSTAGRAM_URL, X_URL } from "@/lib/site";
 
 const LINKS = [
   ...(X_URL ? [{ label: "X", href: X_URL, external: true }] : []),
+  ...(INSTAGRAM_URL ? [{ label: "Instagram", href: INSTAGRAM_URL, external: true }] : []),
   { label: "Privacy", href: "/privacy", external: false },
   { label: "Terms", href: "/terms", external: false },
   ...(CONTACT_EMAIL ? [{ label: "Contact", href: `mailto:${CONTACT_EMAIL}`, external: false }] : []),

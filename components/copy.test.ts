@@ -58,7 +58,15 @@ describe("updated early-access copy renders", () => {
   it("Waitlist.tsx's section copy matches the approved EARLY ACCESS text", () => {
     const source = read("components/Waitlist.tsx");
     expect(source).toContain("Be first to experience OpenMaps.");
-    expect(source).toContain("Get OpenMaps directly from openmaps.tech and help shape what navigation becomes next.");
+    expect(source).toContain("Get notified when OpenMaps is ready and help shape what comes next.");
+  });
+
+  it("Waitlist.tsx drops the eyebrow and the distribution-note lines entirely", () => {
+    const source = read("components/Waitlist.tsx");
+    expect(source).not.toContain("Early access</p>");
+    expect(source).not.toContain("PlatformNote");
+    expect(source).not.toContain("Install directly from the web");
+    expect(source).not.toContain("No app store required");
   });
 
   it("WaitlistForm.tsx renames the early-access checkbox and adds the SMS checkbox + consent text", () => {
@@ -69,6 +77,40 @@ describe("updated early-access copy renders", () => {
       "By selecting this option, you agree to receive an OpenMaps launch notification by text message. Message and",
     );
     expect(source).toContain("Reply STOP to opt out.");
+  });
+
+  it("WaitlistForm.tsx's submit button says Get Updates / Sending…", () => {
+    const source = read("components/WaitlistForm.tsx");
+    expect(source).toContain("Get Updates");
+    expect(source).toContain("Sending…");
+    expect(source).not.toContain("Join Early Access");
+    expect(source).not.toContain("Joining…");
+  });
+
+  it("the Instagram URL lives in site.ts and is not hardcoded in Header or Footer", () => {
+    expect(read("lib/site.ts")).toContain('export const INSTAGRAM_URL = "https://www.instagram.com/openmaps.tech"');
+    for (const relativePath of ["components/Header.tsx", "components/Footer.tsx"]) {
+      const source = read(relativePath);
+      expect(source).toContain("INSTAGRAM_URL");
+      expect(source).not.toContain("instagram.com");
+    }
+  });
+
+  it("Header.tsx renders the Instagram link next to X with the required attributes", () => {
+    const source = read("components/Header.tsx");
+    expect(source).toContain('aria-label="OpenMaps on Instagram"');
+    expect(source).toContain('rel="noopener noreferrer"');
+    expect(source).toContain("<InstagramGlyph />");
+    // The standalone "Early Access" nav link is gone; the CTA covers it.
+    expect(source).not.toContain(">Early Access</a>");
+  });
+
+  it("Footer.tsx lists X, Instagram, Privacy, Terms, Contact in order", () => {
+    const source = read("components/Footer.tsx");
+    const order = ['label: "X"', 'label: "Instagram"', 'label: "Privacy"', 'label: "Terms"', 'label: "Contact"'];
+    const positions = order.map((needle) => source.indexOf(needle));
+    expect(positions.every((p) => p !== -1)).toBe(true);
+    expect(positions).toEqual([...positions].sort((a, b) => a - b));
   });
 
   it("privacy page describes the phone/SMS consent field instead of the Android device field", () => {

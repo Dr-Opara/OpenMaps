@@ -119,7 +119,7 @@ export function WaitlistForm() {
             disabled={status === "submitting"}
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand text-[15px] font-semibold text-white shadow-[0_4px_14px_-4px_rgba(47,123,255,0.45)] transition-colors hover:bg-brand-hi active:bg-brand-press disabled:opacity-60"
           >
-            {status === "submitting" ? "Joining…" : <>Join Early Access <IconArrow /></>}
+            {status === "submitting" ? "Sending…" : <>Get Updates <IconArrow /></>}
           </button>
         </div>
 

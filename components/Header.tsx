@@ -13,7 +13,6 @@ export function Header({ base = "" }: { base?: "" | "/" }) {
         <a href={base || "#top"} aria-label="OpenMaps home"><Wordmark /></a>
         <nav aria-label="Primary" className="flex items-center gap-2">
           <a href={`${base}#concept`} className={link}>Concept</a>
-          <a href={`${base}#waitlist`} className={link}>Early Access</a>
           {X_URL && (
             <a href={X_URL} target="_blank" rel="noopener noreferrer" aria-label="OpenMaps on X" className={`${link} px-3`}>
               <XGlyph />
