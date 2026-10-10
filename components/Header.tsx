@@ -1,7 +1,7 @@
 import { CtaLink } from "./CtaLink";
 import { Wordmark } from "./Logo";
-import { XGlyph } from "./Brand";
-import { X_URL } from "@/lib/site";
+import { InstagramGlyph, XGlyph } from "./Brand";
+import { INSTAGRAM_URL, X_URL } from "@/lib/site";
 
 /** Thin light bar. `base="/"` on non-home pages. Icon + "OpenMaps" only — no tagline here. */
 export function Header({ base = "" }: { base?: "" | "/" }) {
@@ -17,6 +17,11 @@ export function Header({ base = "" }: { base?: "" | "/" }) {
           {X_URL && (
             <a href={X_URL} target="_blank" rel="noopener noreferrer" aria-label="OpenMaps on X" className={`${link} px-3`}>
               <XGlyph />
+            </a>
+          )}
+          {INSTAGRAM_URL && (
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="OpenMaps on Instagram" className={`${link} px-3`}>
+              <InstagramGlyph />
             </a>
           )}
           <CtaLink href={`${base}#waitlist`} location="header" variant="small" trackClick>

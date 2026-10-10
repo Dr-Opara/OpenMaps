@@ -12,6 +12,9 @@ export const CONTACT_EMAIL = "hello@openmaps.tech";
 // Full X profile URL, e.g. "https://x.com/yourhandle". Empty = footer link hidden.
 export const X_URL = "https://x.com/openmaps_";
 
+// Full Instagram profile URL. Empty = header link hidden.
+export const INSTAGRAM_URL = "https://www.instagram.com/openmaps.tech";
+
 // Kept separate so editing one legal page's date doesn't falsely imply the other changed too.
 export const PRIVACY_UPDATED = "October 10, 2026";
 export const TERMS_UPDATED = "October 10, 2026";

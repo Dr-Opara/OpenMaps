@@ -48,10 +48,11 @@ describe("outdated Android-first copy is gone from the touched surfaces", () => 
 });
 
 describe("updated early-access copy renders", () => {
-  it("Brand.tsx's PlatformNote uses direct-distribution language", () => {
+  it("Brand.tsx's PlatformNote does not imply an installable app exists yet", () => {
     const source = read("components/Brand.tsx");
-    expect(source).toContain("Install directly from the web");
-    expect(source).toContain("No app store required");
+    expect(source).toContain("Early access through openmaps.tech");
+    expect(source).toContain("No app store signup required");
+    expect(source).not.toContain("Install directly from the web");
   });
 
   it("Waitlist.tsx's section copy matches the approved EARLY ACCESS text", () => {
