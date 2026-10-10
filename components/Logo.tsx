@@ -1,18 +1,17 @@
+// Natural aspect ratio of /public/openmaps-mark.png (1371×1887), used to size it without
+// redrawing or reinterpreting the official mark.
+const MARK_ASPECT = 1371 / 1887;
+
 export function LogoMark({ size = 30 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 1024 1024" aria-hidden="true">
-      <defs>
-        <linearGradient id="om-pin" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#5FE3FF" />
-          <stop offset="1" stopColor="#2F7BFF" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M512 880C512 880 270 660 270 430A242 242 0 1 1 754 430C754 660 512 880 512 880Z"
-        fill="url(#om-pin)"
-      />
-      <circle cx="512" cy="430" r="92" fill="#050a14" />
-    </svg>
+    <img
+      src="/openmaps-mark.png"
+      alt=""
+      aria-hidden="true"
+      width={Math.round(size * MARK_ASPECT)}
+      height={size}
+      className="inline-block shrink-0"
+    />
   );
 }
 

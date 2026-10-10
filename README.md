@@ -43,14 +43,50 @@ secrets make the API return 503 instead of silently dropping signups.
 | --- | --- | --- |
 | `SUPABASE_URL` | Cloudflare secret | `https://<project-ref>.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | Cloudflare secret | Supabase service-role (or new `sb_secret_...`) key |
+| `RESEND_API_KEY` | Cloudflare secret | Resend API key (domain `openmaps.tech` must be verified in Resend) |
 
 ```bash
 npx wrangler secret put SUPABASE_URL
 npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+npx wrangler secret put RESEND_API_KEY
 ```
 Rules: server-only, never `NEXT_PUBLIC_`, never committed (`.dev.vars`, `.env*` are gitignored), never logged
-(the code logs only an HTTP status on failure). The browser only calls `POST /api/waitlist`. After a build,
+(the code logs only an HTTP status on failure). Phone numbers follow the same rule: collected only when SMS
+opt-in is checked, never logged, never returned in any API response, never shown anywhere after submission.
+The browser only calls `POST /api/waitlist`. After a build,
 `npm run check:secrets` fails if the key name or value appears in client assets.
+
+## Email (Resend)
+
+`lib/email/` sends transactional email via the Resend HTTP API (plain `fetch`, no SDK — Workers-compatible).
+Sender is `OpenMaps <updates@openmaps.tech>`, reply-to is `hello@openmaps.tech` (`CONTACT_EMAIL` in `lib/site.ts`).
+Google Workspace handles inbound mail to `hello@openmaps.tech`; Resend receiving is intentionally not enabled,
+and no DNS/MX records were touched by this.
+
+- **Waitlist confirmation** (`sendWaitlistConfirmationEmail(to, smsOptIn)`) — sent automatically from
+  `app/api/waitlist/route.ts` once per *new* signup, right after the Supabase row is created. Duplicates never
+  trigger a second email. If Resend fails or `RESEND_API_KEY` is missing, the signup still succeeds (HTTP 200)
+  and only a safe, non-secret error is logged — a stored signup is never lost over an email delivery problem.
+  When `smsOptIn` is true the email adds one line noting a launch text will also follow.
+- **Early access invite** (`sendEarlyAccessInviteEmail(to, accessUrl)`) and **launch update**
+  (`sendLaunchUpdateEmail(to)`) — reusable templates/functions in `lib/email/`. Neither is wired to an automatic
+  trigger; nothing sends these until you call them explicitly (e.g. from a one-off admin script) once there's an
+  access URL / a launch date. `accessUrl` is a required parameter, not a hardcoded constant.
+
+## SMS (future, not yet implemented)
+
+No SMS provider is connected. `lib/sms.ts` exposes `sendLaunchNotification({ phoneNumber })` as a safe no-op
+stub — calling it logs a warning (never the phone number) and returns `{ ok: false, reason: "not_configured" }`;
+nothing calls it. `lib/waitlist/sms-recipients.ts` exposes a read-only `getSmsLaunchRecipients()` that selects
+only `sms_opt_in = true AND phone_number IS NOT NULL`; it does not send anything, and there is no public or
+unauthenticated endpoint for triggering a send.
+
+Intended flow once a provider (e.g. Twilio) is chosen and its secret is added as a Cloudflare secret:
+1. Call `getSmsLaunchRecipients()` to retrieve only users with valid SMS consent.
+2. Send exactly one launch notification per recipient.
+3. Support STOP/unsubscribe per the provider's built-in compliance tooling.
+4. Never send marketing SMS beyond this consent scope unless the waitlist form's consent language is expanded
+   first.
 
 ## Public settings (not secrets): `lib/site.ts`
 
@@ -61,8 +97,9 @@ Rules: server-only, never `NEXT_PUBLIC_`, never committed (`.dev.vars`, `.env*` 
 
 1. Create a project (free tier is fine).
 2. SQL editor: run `supabase/schema.sql`. It creates `openmaps_waitlist` (`id`, `email`, `first_name`,
-   `android_phone`, `city_state`, `alpha_interest`, `source` in twitter/direct/other, `created_at`), a unique
-   index on `lower(email)`, enables RLS with no policies, and revokes all privileges from `anon`/`authenticated`.
+   `android_phone` [unused by the app; kept for historical rows], `city_state`, `alpha_interest`, `phone_number`,
+   `sms_opt_in`, `sms_opt_in_at`, `source` in twitter/direct/other, `created_at`), a unique index on
+   `lower(email)`, enables RLS with no policies, and revokes all privileges from `anon`/`authenticated`.
 3. Project settings > API: copy the project URL and the service-role key into the Cloudflare secrets above.
 
 ## Source attribution & duplicates
@@ -92,6 +129,7 @@ npm install
 npx wrangler login                       # or set CLOUDFLARE_API_TOKEN (Edit Workers template)
 npx wrangler secret put SUPABASE_URL
 npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+npx wrangler secret put RESEND_API_KEY
 npm run deploy:dry-run
 npm run deploy                           # <- the deploy command
 npm run check:secrets

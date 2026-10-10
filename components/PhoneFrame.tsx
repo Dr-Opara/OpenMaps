@@ -5,7 +5,7 @@ import { ConceptImage } from "./ConceptImage";
 export function PhoneFrame({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <div
-      className={`relative rounded-[2.4rem] bg-[#04070d] p-[5px] shadow-[0_0_0_1.5px_rgba(150,175,220,0.38),0_28px_70px_-18px_rgba(47,123,255,0.5)] ${className}`}
+      className={`relative rounded-[2.4rem] bg-[#04070d] p-[5px] shadow-[0_0_0_1px_rgba(15,23,42,0.08),0_24px_48px_-20px_rgba(15,23,42,0.35)] ${className}`}
     >
       <div className="relative aspect-[9/15] overflow-hidden rounded-[2.05rem] bg-[#07101c]">
         {children}

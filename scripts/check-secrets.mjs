@@ -8,8 +8,8 @@ if (!existsSync(dir)) {
   process.exit(2);
 }
 
-const needles = ["SUPABASE_SERVICE_ROLE_KEY", "service_role", "SupabaseWaitlistStore"];
-for (const name of ["SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_URL"]) {
+const needles = ["SUPABASE_SERVICE_ROLE_KEY", "service_role", "SupabaseWaitlistStore", "RESEND_API_KEY"];
+for (const name of ["SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_URL", "RESEND_API_KEY"]) {
   const v = process.env[name];
   if (v && v.length > 8) needles.push(v);
 }

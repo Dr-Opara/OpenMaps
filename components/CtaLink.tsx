@@ -7,9 +7,9 @@ type Variant = "primary" | "secondary" | "small";
 
 const styles: Record<Variant, string> = {
   primary:
-    "h-12 px-6 sm:h-14 sm:px-8 bg-brand text-white font-semibold shadow-[0_6px_28px_-8px_rgba(47,123,255,0.9)] hover:bg-brand-hi active:bg-brand-press",
+    "h-12 px-6 sm:h-14 sm:px-8 bg-brand text-white font-semibold shadow-[0_4px_14px_-4px_rgba(47,123,255,0.45)] hover:bg-brand-hi active:bg-brand-press",
   secondary:
-    "h-12 px-4 sm:h-14 sm:px-8 border border-brand/60 bg-ink/40 text-white font-medium hover:bg-brand/15",
+    "h-12 px-4 sm:h-14 sm:px-8 border border-line bg-paper text-ink font-medium hover:border-brand/40 hover:text-brand",
   small: "h-9 px-4 sm:h-10 text-[13px] rounded-xl bg-brand text-white font-semibold hover:bg-brand-hi active:bg-brand-press",
 };
 

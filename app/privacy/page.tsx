@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
 import { Contact } from "@/components/Contact";
+import { PRIVACY_UPDATED } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — OpenMaps",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy">
+    <LegalPage title="Privacy Policy" updated={PRIVACY_UPDATED}>
       <section>
         <p>
           OpenMaps is a navigation product in development. This policy covers the openmaps.tech website and its
@@ -24,8 +25,12 @@ export default function PrivacyPage() {
         <p>When you join the waitlist you give us:</p>
         <ul>
           <li><strong>Email address</strong> (required)</li>
-          <li><strong>First name</strong>, <strong>Android phone model</strong> and <strong>city / state</strong> (all optional)</li>
-          <li>Whether you checked <strong>&ldquo;I&rsquo;m interested in testing the Android Alpha&rdquo;</strong></li>
+          <li><strong>First name</strong> and <strong>city / state</strong> (both optional)</li>
+          <li>Whether you checked <strong>&ldquo;I want early access to OpenMaps&rdquo;</strong></li>
+          <li>
+            If you check <strong>&ldquo;Text me when OpenMaps launches&rdquo;</strong>: your <strong>phone number</strong>
+            and the time you gave that consent. We do not collect or store a phone number unless you check this box.
+          </li>
         </ul>
         <p>We also record:</p>
         <ul>
@@ -45,8 +50,9 @@ export default function PrivacyPage() {
       <section>
         <h2>How we use it</h2>
         <ul>
-          <li>To contact you about OpenMaps early access and Alpha testing</li>
-          <li>To choose which U.S. test markets and Android devices to start with</li>
+          <li>To contact you about OpenMaps early access</li>
+          <li>To send a one-time launch notification by text, only if you checked that box</li>
+          <li>To choose which U.S. markets to start with</li>
           <li>To understand which channels bring people to the waitlist</li>
           <li>To keep the site secure and prevent duplicate or abusive signups</li>
         </ul>
@@ -76,8 +82,9 @@ export default function PrivacyPage() {
         <p>
           You can ask us to see, correct or delete your waitlist information, or to stop contacting you, at any time by
           emailing <Contact /> from the address you signed up with. Every
-          message we send will also tell you how to opt out. Residents of some states, including California, have
-          additional rights under state law; we will honor valid requests.
+          message we send will also tell you how to opt out, and any text message will support replying STOP.
+          Residents of some states, including California, have additional rights under state law; we will honor
+          valid requests.
         </p>
       </section>
 

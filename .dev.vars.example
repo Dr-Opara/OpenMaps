@@ -2,3 +2,6 @@
 # Copy to .dev.vars (gitignored). Leave empty to use the in-memory dev mock.
 SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
+
+# Resend (transactional email). Leave empty to skip sending locally; signups still succeed.
+RESEND_API_KEY=

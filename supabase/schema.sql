@@ -8,10 +8,20 @@ create table if not exists public.openmaps_waitlist (
   android_phone   text,
   city_state      text,
   alpha_interest  boolean not null default false,
+  phone_number    text,
+  sms_opt_in      boolean not null default false,
+  sms_opt_in_at   timestamptz,
   source          text not null default 'direct'
                   check (source in ('twitter', 'direct', 'other')),
   created_at      timestamptz not null default now()
 );
+
+-- Idempotent for tables created before SMS consent existed: safe to rerun.
+-- `android_phone` (device model, e.g. "Pixel 8") is kept for historical rows; the app no
+-- longer writes to it now that the form collects `phone_number` for SMS consent instead.
+alter table public.openmaps_waitlist add column if not exists phone_number text;
+alter table public.openmaps_waitlist add column if not exists sms_opt_in boolean not null default false;
+alter table public.openmaps_waitlist add column if not exists sms_opt_in_at timestamptz;
 
 -- Duplicate prevention: one row per email, case-insensitive.
 create unique index if not exists openmaps_waitlist_email_key

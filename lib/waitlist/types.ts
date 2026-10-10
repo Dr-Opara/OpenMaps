@@ -3,9 +3,11 @@ export type WaitlistSource = "twitter" | "direct" | "other";
 export interface WaitlistEntry {
   email: string;
   firstName: string | null;
-  androidPhone: string | null;
   cityState: string | null;
   alphaInterest: boolean;
+  /** E.164, only ever set when smsOptIn is true. */
+  phoneNumber: string | null;
+  smsOptIn: boolean;
   source: WaitlistSource;
 }
 

@@ -12,4 +12,6 @@ export const CONTACT_EMAIL = "hello@openmaps.tech";
 // Full X profile URL, e.g. "https://x.com/yourhandle". Empty = footer link hidden.
 export const X_URL = "https://x.com/openmaps_";
 
-export const LEGAL_UPDATED = "October 9, 2026";
+// Kept separate so editing one legal page's date doesn't falsely imply the other changed too.
+export const PRIVACY_UPDATED = "October 10, 2026";
+export const TERMS_UPDATED = "October 10, 2026";

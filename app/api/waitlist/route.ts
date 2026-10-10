@@ -1,3 +1,4 @@
+import { sendWaitlistConfirmationEmail } from "@/lib/email";
 import { getWaitlistStore } from "@/lib/waitlist";
 import { parseSignup } from "@/lib/waitlist/validate";
 
@@ -60,6 +61,16 @@ export async function POST(req: Request) {
   try {
     const result = await store.add(parsed.entry);
     // Duplicates get the same success response, so the form can't be used to probe who is signed up.
+    // The row is already committed at this point: an email failure below must never turn into
+    // a failure response, or a valid signup would look lost to the visitor who submitted it.
+    if (result.status === "created") {
+      try {
+        const emailResult = await sendWaitlistConfirmationEmail(parsed.entry.email, parsed.entry.smsOptIn);
+        if (!emailResult.ok) console.error("[waitlist] confirmation email not sent", { reason: emailResult.reason });
+      } catch (err) {
+        console.error("[waitlist] confirmation email threw", err instanceof Error ? err.message : "unknown error");
+      }
+    }
     return Response.json({ ok: true, duplicate: result.status === "duplicate" });
   } catch (err) {
     console.error("[waitlist] store error", err instanceof Error ? err.message : err);

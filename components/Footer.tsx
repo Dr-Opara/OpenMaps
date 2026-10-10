@@ -10,11 +10,11 @@ const LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-line px-4 py-10 sm:px-6">
+    <footer className="surface-dark border-t border-white/10 px-4 py-10 sm:px-6">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-4">
           <Wordmark />
-          <span className="hidden h-4 w-px bg-line sm:block" />
+          <span className="hidden h-4 w-px bg-white/15 sm:block" />
           <span className="text-sm text-white/55">See What&rsquo;s Ahead</span>
         </div>
         <nav aria-label="Footer">

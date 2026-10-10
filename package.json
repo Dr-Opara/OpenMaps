@@ -10,7 +10,8 @@
     "deploy": "npx @vinext/cloudflare deploy",
     "deploy:dry-run": "npx @vinext/cloudflare deploy --dry-run",
     "typecheck": "tsc --noEmit",
-    "check:secrets": "node scripts/check-secrets.mjs"
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "next": "^15.1.0",
@@ -31,6 +32,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^5.6.0",
     "vite": "^8.0.0",
+    "vitest": "^3.2.4",
     "wrangler": "^4.0.0"
   }
 }

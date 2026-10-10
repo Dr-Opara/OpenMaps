@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
 import { Contact } from "@/components/Contact";
+import { TERMS_UPDATED } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Terms & Alpha Terms — OpenMaps",
+  title: "Terms & Early Access Terms — OpenMaps",
   description: "Terms for using the OpenMaps website and joining the early-access waitlist.",
   alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms & Alpha Terms">
+    <LegalPage title="Terms & Early Access Terms" updated={TERMS_UPDATED}>
       <section>
         <p>
-          These terms cover the openmaps.tech website and the early-access waitlist, and set expectations for any Alpha
-          testing we invite you to. By using the site or joining the waitlist you agree to them. If you don&rsquo;t agree,
-          please don&rsquo;t join.
+          These terms cover the openmaps.tech website and the early-access waitlist, and set expectations for any
+          Early Access testing we invite you to. By using the site or joining the waitlist you agree to them. If you
+          don&rsquo;t agree, please don&rsquo;t join.
         </p>
       </section>
 
@@ -37,14 +38,14 @@ export default function TermsPage() {
       </section>
 
       <section>
-        <h2>If you are invited to the Alpha</h2>
+        <h2>If you are invited to Early Access</h2>
         <ul>
-          <li>Alpha software is unfinished. It may be inaccurate, unavailable, or stop working, and may be changed or withdrawn at any time.</li>
+          <li>Early Access software is unfinished. It may be inaccurate, unavailable, or stop working, and may be changed or withdrawn at any time.</li>
           <li><strong>Do not rely on it for safety.</strong> Navigation data, directions, hazards and camera overlays may be wrong or late. Obey traffic laws and road signs, and use your own judgment.</li>
           <li><strong>Never operate or look at your phone while driving.</strong> Have a passenger use it, or use it only when the vehicle is safely stopped.</li>
           <li>We may ask for feedback. You grant us a free, perpetual right to use feedback you give us to improve OpenMaps, without obligation to you.</li>
-          <li>Please keep Alpha builds and unreleased features confidential unless we say otherwise.</li>
-          <li>Separate Alpha terms and an app privacy policy may apply to the app itself, and we will show them before you start testing.</li>
+          <li>Please keep Early Access builds and unreleased features confidential unless we say otherwise.</li>
+          <li>Separate Early Access terms and an app privacy policy may apply to the app itself, and we will show them before you start testing.</li>
         </ul>
       </section>
 
@@ -67,10 +68,11 @@ export default function TermsPage() {
       <section>
         <h2>No warranty; limited liability</h2>
         <p>
-          The site and any Alpha are provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo; without warranties of any
-          kind. To the fullest extent the law allows, OpenMaps will not be liable for indirect, incidental or
-          consequential damages, or for any loss arising from your use of the site or an Alpha, and our total liability
-          is limited to $100. Some jurisdictions don&rsquo;t allow certain limits, so parts of this may not apply to you.
+          The site and any Early Access testing are provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo; without
+          warranties of any kind. To the fullest extent the law allows, OpenMaps will not be liable for indirect,
+          incidental or consequential damages, or for any loss arising from your use of the site or Early Access, and
+          our total liability is limited to $100. Some jurisdictions don&rsquo;t allow certain limits, so parts of this
+          may not apply to you.
         </p>
       </section>
 
@@ -78,8 +80,8 @@ export default function TermsPage() {
         <h2>Ending and changes</h2>
         <p>
           You can leave the waitlist or stop testing at any time (see the Privacy Policy). We may remove anyone from the
-          waitlist or Alpha, and may update these terms; continued use after an update means you accept it. The current
-          version is always at openmaps.tech/terms.
+          waitlist or Early Access, and may update these terms; continued use after an update means you accept it. The
+          current version is always at openmaps.tech/terms.
         </p>
       </section>
 
